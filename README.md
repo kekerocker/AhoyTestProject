@@ -20,7 +20,5 @@ How to work with it:
 
 8.) Added Service to push notification every day at 6 AM. It would show your current location and what current temperature is outside.
 
-Didn't finished second task with providing weather info for a few days and more, because that api request is requiring subscription (I used openweather API).
-
 P.S. Didn't polished this app enough (for example I'm not checking if permission is not granted (when you disallow to share geolocation))
-because I have a job to do, but I made almost all tasks.
+because I have a job to do, but I made all tasks.

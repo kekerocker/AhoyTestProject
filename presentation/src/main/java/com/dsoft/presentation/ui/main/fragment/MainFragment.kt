@@ -28,7 +28,6 @@ import com.dsoft.presentation.ui.favourite.fragment.FavouriteFragment
 import com.dsoft.presentation.ui.main.vm.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -185,18 +184,14 @@ class MainFragment : BaseFragment() {
                     is Resource.Failure -> {
                         hideProgressBar()
                         showAddToFavouritesButton(false)
-                        Snackbar.make(
-                            requireView(),
-                            response.message.toString(),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        showErrorDialog(response.message.toString())
                     }
                 }
             }
         }
     }
 
-    private fun showAddToFavouritesButton(show: Boolean = false) {
+    private fun showAddToFavouritesButton(show: Boolean) {
         when (show) {
             true -> binding.addToFavouritesButton.visibility = VISIBLE
             false -> binding.addToFavouritesButton.visibility = GONE

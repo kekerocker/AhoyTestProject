@@ -6,4 +6,5 @@
     <string name="no_favourites">Add favourites to see them here</string>
     <string name="title_favourites">Favourite cities</string>
     <string name="delete_favourites">Delete</string>
+    <string name="attention">Attention!</string>
 </resources>

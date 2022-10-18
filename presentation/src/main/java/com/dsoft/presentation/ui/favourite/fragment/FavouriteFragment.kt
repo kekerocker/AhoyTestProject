@@ -7,8 +7,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.dsoft.domain.model.Favourite
 import com.dsoft.presentation.databinding.BottomSheetFragmentFavouriteBinding

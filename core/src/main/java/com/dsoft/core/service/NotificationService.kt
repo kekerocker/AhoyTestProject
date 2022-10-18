@@ -15,8 +15,8 @@ class NotificationService @Inject constructor(): Service() {
 
     override fun onBind(intent: Intent): IBinder? = null
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        intent?.let(::setupNotification)
+    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        intent.let(::setupNotification)
         return super.onStartCommand(intent, flags, startId)
     }
 

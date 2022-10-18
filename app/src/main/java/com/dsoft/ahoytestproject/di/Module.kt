@@ -70,30 +70,6 @@ object Module {
 
     @Singleton
     @Provides
-    fun provideGetWeatherByUserLocationUseCase(repository: WeatherRepository): GetWeatherByUserLocationUseCase {
-        return GetWeatherByUserLocationUseCase(repository)
-    }
-
-    @Singleton
-    @Provides
-    fun provideGetAllFavouriteCityUseCase(repository: WeatherRepository): GetAllFavouriteCityUseCase {
-        return GetAllFavouriteCityUseCase(repository)
-    }
-
-    @Singleton
-    @Provides
-    fun provideAddFavouriteCity(repository: WeatherRepository): AddFavouriteCityToDBUseCase {
-        return AddFavouriteCityToDBUseCase(repository)
-    }
-
-    @Singleton
-    @Provides
-    fun provideGetWeatherByCityNameUseCase(repository: WeatherRepository): GetWeatherByCityNameUseCase {
-        return GetWeatherByCityNameUseCase(repository)
-    }
-
-    @Singleton
-    @Provides
     fun provideDatabase(@ApplicationContext context: Context) =
         Room.databaseBuilder(
             context.applicationContext,
@@ -104,16 +80,4 @@ object Module {
     @Singleton
     @Provides
     fun provideFavouritesDao(db: AhoyDB) = db.favouritesDao()
-
-    @Singleton
-    @Provides
-    fun provideBroadcastReceiver(): NotificationReceiver = NotificationReceiver()
-
-    @Singleton
-    @Provides
-    fun provideNotificationService(): NotificationService = NotificationService()
-
-    @Singleton
-    @Provides
-    fun provideNotificationUtil(): NotificationUtil = NotificationUtil()
 }

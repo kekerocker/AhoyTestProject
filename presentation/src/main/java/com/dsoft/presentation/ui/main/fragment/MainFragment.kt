@@ -74,16 +74,13 @@ class MainFragment : BaseFragment() {
         isLocationPermissionGranted()
         initObservers()
         initListeners()
-        createService()
     }
 
-    private fun createService() {
-        requireActivity().startService(
-            Intent(
-                requireActivity().applicationContext,
-                NotificationService::class.java
-            )
-        )
+    private fun createService(coordinates: Weather.Coordinates) {
+        Intent(requireActivity().applicationContext, NotificationService::class.java).apply {
+            putExtra("latitude", coordinates.latitude)
+            putExtra("longitude", coordinates.longitude)
+        }.also(requireActivity()::startService)
     }
 
     private fun isLocationPermissionGranted(): Boolean {
@@ -106,7 +103,10 @@ class MainFragment : BaseFragment() {
             ?.addOnSuccessListener { location: Location? ->
                 val latitude = location?.latitude ?: 0.0
                 val longitude = location?.longitude ?: 0.0
-                val coordinates = Weather.Coordinates.createCoordinates(latitude, longitude)
+                val coordinates = Weather.Coordinates
+                    .createCoordinates(latitude, longitude)
+                    .also(::createService)
+
                 viewModel.currentCoordinates = coordinates
                 viewModel.getWeatherByUserLocation(coordinates)
             }

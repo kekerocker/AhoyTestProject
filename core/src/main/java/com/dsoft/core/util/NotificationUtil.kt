@@ -4,8 +4,10 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.dsoft.core.receiver.NotificationReceiver
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -31,11 +33,15 @@ class NotificationUtil @Inject constructor() {
     }
 
     fun setupNotification(int: Intent, applicationContext: Context) {
-        val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 6)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+        }
+        if (calendar.time < Date()) calendar.add(Calendar.DAY_OF_MONTH, 1)
+
         val latitude = int.getDoubleExtra("latitude", 0.0)
         val longitude = int.getDoubleExtra("longitude", 0.0)
-
-        calendar.set(Calendar.HOUR_OF_DAY, 6)
         val intent = Intent(applicationContext, NotificationReceiver::class.java).apply {
             putExtra("latitude", latitude)
             putExtra("longitude", longitude)
@@ -53,5 +59,7 @@ class NotificationUtil @Inject constructor() {
             AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
+        val dtf = SimpleDateFormat("dd.MM.yy HH:mm:ss", Locale.getDefault())
+        Log.d("QQQ", "cal: ${dtf.format(calendar.timeInMillis)}")
     }
 }

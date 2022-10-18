@@ -3,6 +3,7 @@
 Test project for AHOY.
 
 How to work with it:
+
 1.) In the main menu ou have EditText, write city name in it, it will mare api request and find weather info for this location;
 
 2.) If you press "Add to favourites" this city will be saved in local DB;

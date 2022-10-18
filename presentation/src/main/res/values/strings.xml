@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feels_like">Feels like:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="pressure">Pressure:</string>
+    <string name="current_temperature">Current temperature:</string>
+    <string name="min_and_max_temperature">Min and max temperature:</string>
+    <string name="switch_to_fahrenheit">Switch to Fahrenheit</string>
+</resources>

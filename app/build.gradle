@@ -28,13 +28,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             manifestPlaceholders = [
-                    screenOrientation: "fullSensor"
+                    screenOrientation: "portrait"
             ]
         }
 
         debug {
             manifestPlaceholders = [
-                    screenOrientation: "portrait"
+                    screenOrientation: "fullSensor"
             ]
         }
 

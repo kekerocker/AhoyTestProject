@@ -1,5 +1,6 @@
 package com.dsoft.domain.model
 
+import com.dsoft.domain.extension.convertToFahrenheit
 import com.dsoft.domain.extension.shrinkToTwoDigits
 
 data class Weather(
@@ -61,10 +62,6 @@ data class Weather(
                 TemperatureType.CELSIUS -> minMaxTemperatureCelsius
                 TemperatureType.FAHRENHEIT -> minMaxTemperatureFahrenheit
             }
-        }
-
-        private fun Double.convertToFahrenheit(): Double {
-            return ((this * 9) / 5) + 32
         }
     }
 

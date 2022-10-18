@@ -6,4 +6,5 @@
     <string name="current_temperature">Current temperature:</string>
     <string name="min_and_max_temperature">Min and max temperature:</string>
     <string name="switch_to_fahrenheit">Switch to Fahrenheit</string>
+    <string name="date">Date</string>
 </resources>

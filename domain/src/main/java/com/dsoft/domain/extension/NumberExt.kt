@@ -7,3 +7,7 @@ fun Double.kelvinToCelsius(): Double {
 fun Number.shrinkToTwoDigits(): String {
     return String.format("%.2f", this)
 }
+
+fun Double.convertToFahrenheit(): Double {
+    return ((this * 9) / 5) + 32
+}

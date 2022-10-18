@@ -17,14 +17,17 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dsoft.core.service.NotificationService
+import com.dsoft.core.util.EmptyDividerDecoration
 import com.dsoft.core.util.Resource
 import com.dsoft.domain.model.Favourite
 import com.dsoft.domain.model.TemperatureType
 import com.dsoft.domain.model.Weather
+import com.dsoft.domain.model.WeatherForecast
 import com.dsoft.presentation.R
 import com.dsoft.presentation.common.BaseFragment
 import com.dsoft.presentation.databinding.FragmentMainBinding
 import com.dsoft.presentation.ui.favourite.fragment.FavouriteFragment
+import com.dsoft.presentation.ui.main.fragment.adapter.WeatherForecastAdapter
 import com.dsoft.presentation.ui.main.vm.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -38,6 +41,8 @@ class MainFragment : BaseFragment() {
 
     private val viewModel by viewModels<MainViewModel>()
     private var fusedLocationManager: FusedLocationProviderClient? = null
+
+    private lateinit var rvAdapter: WeatherForecastAdapter
 
     private val requestPermission =
         registerForActivityResult(
@@ -55,6 +60,7 @@ class MainFragment : BaseFragment() {
         set(value) {
             field = value
             updateWeatherInfo(value)
+            rvAdapter.temperatureType = value
         }
 
     override fun onCreateView(
@@ -73,6 +79,21 @@ class MainFragment : BaseFragment() {
         isLocationPermissionGranted()
         initObservers()
         initListeners()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        rvAdapter = WeatherForecastAdapter()
+        binding.forecastRecyclerView.apply {
+            adapter = rvAdapter
+            addItemDecoration(
+                EmptyDividerDecoration(
+                    requireContext(),
+                    R.dimen.baseline_grid_small,
+                    EmptyDividerDecoration.DisplayMode.VERTICAL
+                )
+            )
+        }
     }
 
     private fun createService(coordinates: Weather.Coordinates) {
@@ -174,6 +195,7 @@ class MainFragment : BaseFragment() {
                             }
                             toolbar.title = response.data.name
                             viewModel.currentWeatherItem = response.data
+                            viewModel.currentCoordinates = response.data.coordinates
                             updateWeatherInfo(temperatureType)
                         }
                     }
@@ -189,6 +211,34 @@ class MainFragment : BaseFragment() {
                 }
             }
         }
+
+        viewModel.weatherForecast.observe(viewLifecycleOwner) {
+            it?.let { response ->
+                when(response) {
+                    is Resource.Loading -> showProgressBar()
+                    is Resource.Success -> {
+                        hideProgressBar()
+                        rvAdapter.listWeather = filterList(response.data)
+                    }
+                    is Resource.Failure -> {
+                        hideProgressBar()
+                        showErrorDialog(response.message.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    private fun filterList(someList: List<WeatherForecast>): List<WeatherForecast> {
+        var currentDate = ""
+        val filteredList = mutableListOf<WeatherForecast>()
+        for (item in someList) {
+            if (currentDate != item.date) {
+                currentDate = item.date
+                filteredList.add(item)
+            }
+        }
+        return filteredList
     }
 
     private fun showAddToFavouritesButton(show: Boolean) {

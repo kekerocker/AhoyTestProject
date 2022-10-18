@@ -1,6 +1,7 @@
 package com.dsoft.data.api
 
 import com.dsoft.data.model.WeatherResponse
+import com.dsoft.data.model.WeatherForecastResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -19,14 +20,13 @@ interface WeatherApiRequest {
     ): WeatherResponse
 
 
-    /**
-     * Require subscription
-     */
-    @GET("data/2.5/forecast/hourly")
+    @GET("https://api.stormglass.io/v2/weather/point")
     suspend fun getDailyForecast(
         @Query("lat") latitude: Double,
-        @Query("lon") longitude: Double,
-        @Query("cnt") count: Int,
-        @Query("appid") apiKey: String
-    ): WeatherResponse
+        @Query("lng") longitude: Double,
+        @Query("params") params: String,
+        @Query("start") startDate: String,
+        @Query("end") endDate: String,
+        @Query("key") apiKey: String
+    ): WeatherForecastResponse
 }

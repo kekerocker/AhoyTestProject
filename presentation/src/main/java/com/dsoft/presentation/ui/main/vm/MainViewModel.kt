@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.dsoft.core.util.Resource
 import com.dsoft.domain.model.TemperatureType
 import com.dsoft.domain.model.Weather
+import com.dsoft.domain.model.WeatherForecast
 import com.dsoft.domain.usecase.AddFavouriteCityToDBUseCase
 import com.dsoft.domain.usecase.GetDailyForecastUseCase
 import com.dsoft.domain.usecase.GetWeatherByCityNameUseCase
@@ -22,10 +23,13 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var getWeatherByUserLocationUseCase: GetWeatherByUserLocationUseCase
+
     @Inject
     lateinit var getWeatherByCityNameUseCase: GetWeatherByCityNameUseCase
+
     @Inject
     lateinit var addCityToFavouritesUseCase: AddFavouriteCityToDBUseCase
+
     @Inject
     lateinit var getDailyForecastUseCase: GetDailyForecastUseCase
 
@@ -36,8 +40,16 @@ class MainViewModel @Inject constructor() : ViewModel() {
     private val mWeatherData: MutableLiveData<Resource<Weather>> = MutableLiveData()
     val weatherData: LiveData<Resource<Weather>> get() = mWeatherData
 
+    private val mWeatherForecast: MutableLiveData<Resource<List<WeatherForecast>>> =
+        MutableLiveData()
+    val weatherForecast: LiveData<Resource<List<WeatherForecast>>> get() = mWeatherForecast
+
     var currentWeatherItem: Weather? = null
     var currentCoordinates: Weather.Coordinates = Weather.Coordinates(0.0, 0.0)
+        set(value) {
+            field = value
+            getDailyForecast()
+        }
 
     private val searchQueryObservable = MutableStateFlow<String?>(null)
     var searchQuery: String
@@ -85,13 +97,10 @@ class MainViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    /**
-     * Require user subscription (not free)
-     */
-    fun getDailyForecast(coordinates: Weather.Coordinates) {
+    private fun getDailyForecast() {
         viewModelScope.launch {
-            mWeatherData.postValue(Resource.Loading())
-            mWeatherData.postValue(Resource.on { getDailyForecastUseCase(coordinates) })
+            mWeatherForecast.postValue(Resource.Loading())
+            mWeatherForecast.postValue(Resource.on { getDailyForecastUseCase(currentCoordinates) })
         }
     }
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#D30808"
-        android:elevation="8dp"
+        android:elevation="@dimen/baseline_grid_small"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/app_name"
         app:titleTextColor="@color/white" />
@@ -158,6 +158,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvMinMaxTempLabel"
         app:thumbTint="@color/red" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/forecastRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/currentLocation"
+        app:layout_constraintTop_toBottomOf="@id/switchTemperatureType"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_weather" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/favouriteCities"

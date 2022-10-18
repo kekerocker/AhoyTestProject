@@ -21,7 +21,7 @@
         android:id="@+id/recyclerViewFavouriteList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/baseline_grid_small"
         android:overScrollMode="never"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -22,4 +22,5 @@ How to work with it:
 
 P.S. Didn't polished this app enough (for example I'm not checking if permission is not granted (when you disallow to share geolocation))
 because I have a job to do, but I made all tasks.
+
 P.S.S I used different api to gather weather info for few days further, they are limited to 10 request a day (had 1 already to check how it's working, be careful. If limit is out, ask me, I will disable it.)

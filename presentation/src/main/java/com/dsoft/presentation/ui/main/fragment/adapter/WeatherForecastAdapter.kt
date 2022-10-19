@@ -11,11 +11,12 @@ import com.dsoft.presentation.databinding.ItemWeatherBinding
 class WeatherForecastAdapter :
     RecyclerView.Adapter<WeatherForecastAdapter.WeatherForecastViewHolder>() {
 
-    var listWeather: List<WeatherForecast> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    private var listWeather: List<WeatherForecast> = emptyList()
+
+    fun setData(newList: List<WeatherForecast>) {
+        listWeather = newList
+        notifyDataSetChanged()
+    }
 
     var temperatureType: TemperatureType = TemperatureType.CELSIUS
         set(value) {

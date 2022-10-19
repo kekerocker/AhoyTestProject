@@ -17,8 +17,8 @@ android {
         consumerProguardFiles "consumer-rules.pro"
 
         buildConfigField "String", 'WEATHER_API_KEY', "\"e80a36da6c86c3165f1f07e173014ece\""
-        //buildConfigField "String", 'SECOND_WEATHER_API_KEY', "\"16f7583c-4ee3-11ed-a138-0242ac130002-16f7592c-4ee3-11ed-a138-0242ac130002\""
-        buildConfigField "String", 'SECOND_WEATHER_API_KEY', "\"56b156f2-4ef8-11ed-bce5-0242ac130002-56b157b0-4ef8-11ed-bce5-0242ac130002\""
+        buildConfigField "String", 'SECOND_WEATHER_API_KEY', "\"16f7583c-4ee3-11ed-a138-0242ac130002-16f7592c-4ee3-11ed-a138-0242ac130002\""
+        //buildConfigField "String", 'SECOND_WEATHER_API_KEY', "\"56b156f2-4ef8-11ed-bce5-0242ac130002-56b157b0-4ef8-11ed-bce5-0242ac130002\""
         buildConfigField "String", 'BASE_URL', "\"https://api.openweathermap.org/\""
     }
 

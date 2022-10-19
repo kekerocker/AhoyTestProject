@@ -214,11 +214,12 @@ class MainFragment : BaseFragment() {
 
         viewModel.weatherForecast.observe(viewLifecycleOwner) {
             it?.let { response ->
-                when(response) {
+                when (response) {
                     is Resource.Loading -> showProgressBar()
                     is Resource.Success -> {
                         hideProgressBar()
-                        rvAdapter.listWeather = filterList(response.data)
+                        filterWeatherForecast(response.data)
+                            .also(rvAdapter::setData)
                     }
                     is Resource.Failure -> {
                         hideProgressBar()
@@ -229,16 +230,14 @@ class MainFragment : BaseFragment() {
         }
     }
 
-    private fun filterList(someList: List<WeatherForecast>): List<WeatherForecast> {
+    private fun filterWeatherForecast(response: List<WeatherForecast>): List<WeatherForecast> {
         var currentDate = ""
-        val filteredList = mutableListOf<WeatherForecast>()
-        for (item in someList) {
+        return response.filter { item ->
             if (currentDate != item.date) {
                 currentDate = item.date
-                filteredList.add(item)
-            }
+                true
+            } else false
         }
-        return filteredList
     }
 
     private fun showAddToFavouritesButton(show: Boolean) {

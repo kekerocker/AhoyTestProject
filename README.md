@@ -4,7 +4,7 @@ Test project for AHOY.
 
 How to work with it:
 
-1.) In the main menu ou have EditText, write city name in it, it will mare api request and find weather info for this location;
+1.) In the main menu ou have EditText, write city name in it, it will make api request and find weather info for this location;
 
 2.) If you press "Add to favourites" this city will be saved in local DB;
 
@@ -23,4 +23,4 @@ How to work with it:
 P.S. Didn't polished this app enough (for example I'm not checking if permission is not granted (when you disallow to share geolocation))
 because I have a job to do, but I made all tasks.
 
-P.S.S I used different api to gather weather info for few days further, they are limited to 10 request a day (had 1 already to check how it's working, be careful. If limit is out, ask me, I will disable it.)
+P.S.S I used different api to gather weather info for few days further, they are limited to 10 request a day (had 1 already to check how it's working, be careful. If limit is out, ask me, I will disable daily forecast.)
